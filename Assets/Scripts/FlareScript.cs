@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class FlareScript : MonoBehaviour {
 
-    public float destructionTime = 1f;
-    private ParticleSystem deathEffect;
-
+    //public float destructionTime = 1f;
+    //private ParticleSystem deathEffect;
+    
+    
+    
+    
     private void Awake()
     {
-        deathEffect = gameObject.GetComponent<ParticleSystem>();
+        //deathEffect = gameObject.GetComponent<ParticleSystem>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -26,10 +29,10 @@ public class FlareScript : MonoBehaviour {
                 Debug.Log("Blue hit a pillar");
             }
         }
-        if (!enemy.CompareTag("Pillar"))
+        else
         {
-            if (name.Contains("Red")) {Debug.Log("Red hit an object");}
-            if (name.Contains("Blue")) {Debug.Log("Blue hit an object");}
+            if (name.Contains("Blue")) { Debug.Log("Blue hit an object"); }
+            else { Debug.Log("Red hit an object"); }
             //StartCoroutine(DestroyOnCollision());
         }
         Destroy(gameObject);

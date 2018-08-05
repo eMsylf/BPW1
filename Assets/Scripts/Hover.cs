@@ -9,13 +9,14 @@ public class Hover : MonoBehaviour {
     bool moveToRed;
 
     public GameObject lerpingObject;
-    public Transform startMarker;
-    public Transform endMarker;
+    public Transform blueMarker;
+    public Transform redMarker;
     public float lerpSpeed = .1f;
     public Material lerpingBallMaterial;
 
     public float t = 1;
     public float timeSpentLerping;
+    public float maxDistanceBeforeLerpBack = .5f;
     
     
     void Start () {
@@ -27,12 +28,14 @@ public class Hover : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (transform.position == startMarker.position)
+            Debug.Log(Vector3.Distance(redMarker.position, transform.position));
+
+            if (Vector3.Distance(transform.position, blueMarker.position) <= maxDistanceBeforeLerpBack)
             {
                 ResetLerpVariables();
                 moveToRed = true;
             }
-            else if (transform.position == endMarker.position)
+            else if (Vector3.Distance(transform.position, redMarker.position) <= maxDistanceBeforeLerpBack)
             {
                 ResetLerpVariables();
                 moveToRed = false;
@@ -56,7 +59,7 @@ public class Hover : MonoBehaviour {
         lerpingBallMaterial.color = Color.red;
         lerpingBallMaterial.SetColor("_EmissionColor", Color.red);
         gameObject.GetComponent<Light>().color = Color.red;
-        transform.position = Vector3.Lerp(transform.position, endMarker.position, lerpSpeed * t);
+        transform.position = Vector3.Lerp(transform.position, redMarker.position, lerpSpeed * t);
         timeSpentLerping++;
     }
 
@@ -65,7 +68,7 @@ public class Hover : MonoBehaviour {
         lerpingBallMaterial.color = Color.blue;
         lerpingBallMaterial.SetColor("_EmissionColor", Color.blue);
         gameObject.GetComponent<Light>().color = Color.blue;
-        transform.position = Vector3.Lerp(transform.position, startMarker.position, lerpSpeed * t);
+        transform.position = Vector3.Lerp(transform.position, blueMarker.position, lerpSpeed * t);
         timeSpentLerping++;
     }
 

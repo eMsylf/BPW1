@@ -6,13 +6,21 @@ public class PillarScript : MonoBehaviour {
 
     public GameObject redLamp;
     public GameObject blueLamp;
+
+    public bool containsBlueLamp = false;
+    public Transform blueMarker;
+    public bool containsRedLamp = false;
+    public Transform redMarker;
+
     public bool pillarState;
+    private Vector3 pillarPosition;
 
     [SerializeField] private Material pillarMaterial;
 
     private void Awake()
     {
         pillarState = true;
+        pillarPosition = gameObject.transform.position;
     }
 
     private void Update()
@@ -26,7 +34,7 @@ public class PillarScript : MonoBehaviour {
         GameObject collisionObject = collision.gameObject;
         if (collisionObject.name.Equals("LerpingObject"))
         {
-            
+            Debug.Log("Pillar switch");
             if (pillarState)
             {
                 pillarMaterial.SetColor("_EmissionColor", Color.black);
@@ -43,17 +51,44 @@ public class PillarScript : MonoBehaviour {
             Debug.Log("Pillar hit by Lerping Object");
         }
 
-        else if (collisionObject.name.StartsWith("FlareBlue"))
+
+
+
+        if (!containsBlueLamp && !containsRedLamp)
+        {
+            if (collisionObject.name.StartsWith("FlareBlue"))
+            {
+                containsBlueLamp = true;
+                blueLamp.SetActive(true);
+                blueMarker.position = pillarPosition;
+                
+                Debug.Log("Pillar hit by blue marker");
+            }
+            if (collisionObject.name.StartsWith("FlareRed"))
+            {
+                containsRedLamp = true;
+                redLamp.SetActive(true);
+                redMarker.position = pillarPosition;
+
+                //redMarker.transform.position = gameObject.transform.position;
+                Debug.Log("Pillar hit by red marker");
+            }
+        }
+
+
+        else if (containsBlueLamp && collisionObject.name.StartsWith("FlareRed"))
         {
             blueLamp.SetActive(true);
-
-            Debug.Log("Pillar hit by blue marker");
+            redLamp.SetActive(false);
+            blueMarker.position = redMarker.position;
+            redMarker.position = pillarPosition;
         }
-        else if (collisionObject.name.StartsWith("FlareRed"))
+        else if (containsRedLamp && collisionObject.name.StartsWith("FlareBlue"))
         {
+            blueLamp.SetActive(false);
             redLamp.SetActive(true);
-            //redMarker.transform.position = gameObject.transform.position;
-            Debug.Log("Pillar hit by red marker");
+            redMarker.position = blueMarker.position;
+            blueMarker.position = pillarPosition;
         }
         
     }
