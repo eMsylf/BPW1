@@ -398,7 +398,6 @@ MonoBehaviour:
   containsRedLamp: 0
   redMarker: {fileID: 291862545}
   pillarState: 0
-  pillarMaterial: {fileID: 2100000, guid: c50f4d67f1305714c9885b2071867255, type: 2}
 --- !u!108 &547528862
 Light:
   m_ObjectHideFlags: 0
@@ -550,7 +549,6 @@ MonoBehaviour:
   containsRedLamp: 0
   redMarker: {fileID: 291862545}
   pillarState: 0
-  pillarMaterial: {fileID: 2100000, guid: c50f4d67f1305714c9885b2071867255, type: 2}
 --- !u!108 &657264578
 Light:
   m_ObjectHideFlags: 0
@@ -1907,12 +1905,17 @@ Prefab:
     - target: {fileID: 54296737050949634, guid: fa735c9fcfffbac4f93381fe2641e7e7,
         type: 2}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54296737050949634, guid: fa735c9fcfffbac4f93381fe2641e7e7,
         type: 2}
       propertyPath: m_CollisionDetection
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135077478667136804, guid: fa735c9fcfffbac4f93381fe2641e7e7,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa735c9fcfffbac4f93381fe2641e7e7, type: 2}
@@ -2039,7 +2042,6 @@ MonoBehaviour:
   containsRedLamp: 0
   redMarker: {fileID: 291862545}
   pillarState: 0
-  pillarMaterial: {fileID: 2100000, guid: c50f4d67f1305714c9885b2071867255, type: 2}
 --- !u!108 &2080952201
 Light:
   m_ObjectHideFlags: 0

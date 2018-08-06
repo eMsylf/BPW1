@@ -54,6 +54,31 @@ public class Hover : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        //Turns pillars that are touched on or off
+        if (other.tag.Contains("Pillar"))
+        {
+            Renderer renderer = other.GetComponent<Renderer>();
+            Material mat = renderer.material;
+            Debug.Log("Pillar" + other.name + "Hit");
+            //Switch light
+            other.GetComponent<Light>().enabled = !other.GetComponent<Light>().enabled;
+            //Switch emission color
+            if (mat.IsKeywordEnabled("_EMISSION"))
+            {
+                mat.DisableKeyword("_EMISSION");
+            }
+            else
+            {
+                mat.EnableKeyword("_EMISSION");
+            }
+        }
+
+    }
+
+
     void MoveToRed ()
     {
         lerpingBallMaterial.color = Color.red;

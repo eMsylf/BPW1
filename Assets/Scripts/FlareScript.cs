@@ -6,13 +6,23 @@ public class FlareScript : MonoBehaviour {
 
     //public float destructionTime = 1f;
     //private ParticleSystem deathEffect;
-    
-    
+
+    private float lifeTime = 200f;
     
     
     private void Awake()
     {
+        
         //deathEffect = gameObject.GetComponent<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        --lifeTime;
+        if (lifeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -52,4 +62,5 @@ public class FlareScript : MonoBehaviour {
         Debug.Log("GameObject destroyed");
     }
     */
+    
 }
