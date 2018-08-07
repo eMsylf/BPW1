@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PillarMarkerManager : MonoBehaviour {
+public class PillarMarkerManager : MonoBehaviour
+{
 
     public bool ayyLmao;
 
@@ -12,20 +13,17 @@ public class PillarMarkerManager : MonoBehaviour {
     public GameObject redMarker;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (ayyLmao)
+	void Update ()
+    {
+        foreach (GameObject child in transform)
         {
-            foreach (GameObject child in transform)
-            {
-                child.SetActive(false);
-            }
-            Children.Clear();
-            ayyLmao = false;
+            //if ()
         }
 	}
 }

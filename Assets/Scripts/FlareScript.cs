@@ -28,13 +28,13 @@ public class FlareScript : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject enemy = collision.gameObject;
-        if (enemy.CompareTag("Pillar"))
+        if (enemy.CompareTag("AnchorPillar"))
         {
-            if (name.Contains("Red"))
+            if (name.Contains("red"))
             {
                 Debug.Log("Red hit a pillar");
             }
-            if (name.Contains("Blue"))
+            if (name.Contains("blue"))
             {
                 Debug.Log("Blue hit a pillar");
             }

@@ -8,6 +8,7 @@ TagManager:
   - blueMarker
   - redMarker
   - lamp
+  - AnchorPillar
   layers:
   - Default
   - TransparentFX

@@ -3,81 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PillarScript : MonoBehaviour {
+    
+    private Renderer pillarRenderer;
+    private Light pillarLight;
 
-    public GameObject redLamp;
-    public GameObject blueLamp;
-
-    public bool containsBlueLamp = false;
-    public Transform blueMarker;
-    public bool containsRedLamp = false;
-    public Transform redMarker;
-
-    public bool pillarState;
-    private Vector3 pillarPosition;
+    public AudioSource ding;
+    public AudioSource dong;
+    Material mat;
 
     //[SerializeField] private Material pillarMaterial;
 
-    private void Awake()
+    void Start()
     {
-        pillarState = true;
-        pillarPosition = gameObject.transform.position;
+        pillarRenderer = GetComponent<Renderer>();
+        pillarLight = GetComponent<Light>();
+        mat = pillarRenderer.material;
+
     }
 
     private void Update()
     {
-        Renderer renderer = GetComponent<Renderer>();
         //pillarMaterial = renderer.material;
-
-        if (pillarPosition == blueMarker.position)
-        {
-            containsBlueLamp = true;
-        }
-        else
-        {
-            containsBlueLamp = false;
-        }
-        if (pillarPosition == redMarker.position)
-        {
-            containsRedLamp = true;
-        }
-        else
-        {
-            containsRedLamp = false;
-        }
-
-        blueLamp.SetActive(containsBlueLamp);
-        redLamp.SetActive(containsRedLamp);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        GameObject collisionObject = collision.gameObject;
 
-        if (!containsBlueLamp && !containsRedLamp)
+        //Turns pillars that are touched on or off
+        if (other.name.Contains("LerpingObject"))
         {
-            if (collisionObject.name.StartsWith("FlareBlue"))
+            Debug.Log("Pillar" + name + "Hit");
+            //Switch light
+            pillarLight.enabled = !pillarLight.enabled;
+
+            //Switch emission on/off
+            if (mat.IsKeywordEnabled("_EMISSION"))
             {
-                blueMarker.position = pillarPosition;
-                
-                Debug.Log("Pillar hit by blue marker");
+                TurnPillarOff();
             }
-            if (collisionObject.name.StartsWith("FlareRed"))
+            else
             {
-                redMarker.position = pillarPosition;
-                Debug.Log("Pillar hit by red marker");
+                TurnPillarOn();
             }
         }
+    }
 
-        else if (containsBlueLamp && collisionObject.name.StartsWith("FlareRed"))
-        {
-            blueMarker.position = redMarker.position;
-            redMarker.position = pillarPosition;
-        }
-        else if (containsRedLamp && collisionObject.name.StartsWith("FlareBlue"))
-        {
-            redMarker.position = blueMarker.position;
-            blueMarker.position = pillarPosition;
-        }
+    public void TurnPillarOn()
+    {
+        ding.Play();
+        mat.EnableKeyword("_EMISSION");
+    }
 
+    public void TurnPillarOff()
+    {
+        dong.Play();
+        mat.DisableKeyword("_EMISSION");
     }
 }

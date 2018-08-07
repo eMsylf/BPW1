@@ -7,8 +7,11 @@ public class Hover : MonoBehaviour {
     float startPosition;
     float endPosition;
     bool moveToRed;
+    public bool moveAutomatically;
 
     public GameObject lerpingObject;
+    private Rigidbody rb;
+
     public Transform blueMarker;
     public Transform redMarker;
     public float lerpSpeed = .1f;
@@ -18,17 +21,17 @@ public class Hover : MonoBehaviour {
     public float timeSpentLerping;
     public float maxDistanceBeforeLerpBack = .5f;
     
-    
     void Start () {
+        rb = lerpingObject.GetComponent<Rigidbody>();
         moveToRed = true;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || moveAutomatically)
         {
-            Debug.Log(Vector3.Distance(redMarker.position, transform.position));
+            //Debug.Log(Vector3.Distance(redMarker.position, transform.position));
 
             if (Vector3.Distance(transform.position, blueMarker.position) <= maxDistanceBeforeLerpBack)
             {
@@ -54,37 +57,12 @@ public class Hover : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-        //Turns pillars that are touched on or off
-        if (other.tag.Contains("Pillar"))
-        {
-            Renderer renderer = other.GetComponent<Renderer>();
-            Material mat = renderer.material;
-            Debug.Log("Pillar" + other.name + "Hit");
-            //Switch light
-            other.GetComponent<Light>().enabled = !other.GetComponent<Light>().enabled;
-            //Switch emission color
-            if (mat.IsKeywordEnabled("_EMISSION"))
-            {
-                mat.DisableKeyword("_EMISSION");
-            }
-            else
-            {
-                mat.EnableKeyword("_EMISSION");
-            }
-        }
-
-    }
-
-
     void MoveToRed ()
     {
         lerpingBallMaterial.color = Color.red;
         lerpingBallMaterial.SetColor("_EmissionColor", Color.red);
         gameObject.GetComponent<Light>().color = Color.red;
-        transform.position = Vector3.Lerp(transform.position, redMarker.position, lerpSpeed * t);
+        rb.MovePosition(Vector3.Lerp(transform.position, redMarker.position, lerpSpeed * t));
         timeSpentLerping++;
     }
 
@@ -93,10 +71,12 @@ public class Hover : MonoBehaviour {
         lerpingBallMaterial.color = Color.blue;
         lerpingBallMaterial.SetColor("_EmissionColor", Color.blue);
         gameObject.GetComponent<Light>().color = Color.blue;
-        transform.position = Vector3.Lerp(transform.position, blueMarker.position, lerpSpeed * t);
+        rb.MovePosition(Vector3.Lerp(transform.position, blueMarker.position, lerpSpeed * t));
+
+        //transform.position = Vector3.Lerp(transform.position, blueMarker.position, lerpSpeed * t);
         timeSpentLerping++;
     }
-
+    
     void ResetLerpVariables()
     {
         timeSpentLerping = 1;
