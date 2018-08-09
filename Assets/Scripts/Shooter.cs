@@ -38,7 +38,7 @@ public class Shooter : MonoBehaviour {
 
     void FireRedFlare ()
     {
-        GameObject flareRed = Instantiate(flareRedPrefab, transform.position + transform.forward, Quaternion.identity);
+        GameObject flareRed = Instantiate(flareRedPrefab, transform.position + transform.forward * 2f, Quaternion.identity);
         Rigidbody flareRigidbody = (Rigidbody)flareRed.GetComponent(typeof(Rigidbody));
 
         flareRigidbody.AddForce(transform.forward * shotSpeed);
@@ -46,7 +46,7 @@ public class Shooter : MonoBehaviour {
 
     void FireBlueFlare ()
     {
-        GameObject flareBlue = Instantiate(flareBluePrefab, transform.position + transform.forward, Quaternion.identity);
+        GameObject flareBlue = Instantiate(flareBluePrefab, transform.position + transform.forward * 2f, Quaternion.identity);
         Rigidbody flareRigidbody = (Rigidbody)flareBlue.GetComponent(typeof(Rigidbody));
 
         flareRigidbody.AddForce(transform.forward * shotSpeed);

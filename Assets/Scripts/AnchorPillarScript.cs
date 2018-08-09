@@ -31,36 +31,43 @@ public class AnchorPillarScript : MonoBehaviour {
 
         blueLamp.SetActive(containsBlueLamp);
         redLamp.SetActive(containsRedLamp);
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         GameObject collisionObject = collision.gameObject;
 
-        if (!containsBlueLamp && !containsRedLamp)
-        {
-            if (collisionObject.name.StartsWith("FlareBlue"))
-            {
-                blueMarker.position = pillarPosition;
 
-                Debug.Log("Pillar hit by blue marker");
-            }
-            if (collisionObject.name.StartsWith("FlareRed"))
+        //if (Vector3.Distance(lerpingObject, redMarker.position) > 1f)
+        {
+            //Move the marker to the hit pillar if it contains neither of the markers
+            if (!containsBlueLamp && !containsRedLamp)
             {
+                if (collisionObject.name.StartsWith("FlareBlue"))
+                {
+                    blueMarker.position = pillarPosition;
+
+                    Debug.Log("Pillar hit by blue marker");
+                }
+                if (collisionObject.name.StartsWith("FlareRed"))
+                {
+                    redMarker.position = pillarPosition;
+                    Debug.Log("Pillar hit by red marker");
+                }
+            }
+
+            else if (containsBlueLamp && collisionObject.name.StartsWith("FlareRed"))
+            {
+                blueMarker.position = redMarker.position;
                 redMarker.position = pillarPosition;
-                Debug.Log("Pillar hit by red marker");
             }
-        }
-
-        else if (containsBlueLamp && collisionObject.name.StartsWith("FlareRed"))
-        {
-            blueMarker.position = redMarker.position;
-            redMarker.position = pillarPosition;
-        }
-        else if (containsRedLamp && collisionObject.name.StartsWith("FlareBlue"))
-        {
-            redMarker.position = blueMarker.position;
-            blueMarker.position = pillarPosition;
+            else if (containsRedLamp && collisionObject.name.StartsWith("FlareBlue"))
+            {
+                redMarker.position = blueMarker.position;
+                blueMarker.position = pillarPosition;
+            }
         }
 
     }

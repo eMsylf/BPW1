@@ -4,4 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/BPW1MenuLevel.unity
+    guid: 42f916761a8a8564594a3fded6536680
+  - enabled: 1
+    path: Assets/Scenes/BPW1Main.unity
+    guid: 7437a76ef9784e24d90dcbee3fea5e7b
+  - enabled: 1
+    path: Assets/Scenes/BPW1Main_lvl2.unity
+    guid: 69027d09c49bfb74d9a2088da61f1f9b
+  - enabled: 1
+    path: Assets/Scenes/BPW1Main_lvl3.unity
+    guid: 03fa50b0b95a15749b78745ed91a25dc
+  m_configObjects: {}

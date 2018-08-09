@@ -8,9 +8,15 @@ public class FlareScript : MonoBehaviour {
     //private ParticleSystem deathEffect;
 
     private float lifeTime = 200f;
-    
-    
-    private void Awake()
+
+
+    public bool blueMarkerCanBeMoved;
+    public bool redMarkerCanBeMoved;
+    public float distanceAboveCanBeMoved = 1f;
+
+
+
+private void Awake()
     {
         
         //deathEffect = gameObject.GetComponent<ParticleSystem>();

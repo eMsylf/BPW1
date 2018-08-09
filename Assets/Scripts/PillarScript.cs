@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PillarScript : MonoBehaviour {
-    
+
+    public bool pillarIsOn;
+
     private Renderer pillarRenderer;
     private Light pillarLight;
 
@@ -18,7 +20,6 @@ public class PillarScript : MonoBehaviour {
         pillarRenderer = GetComponent<Renderer>();
         pillarLight = GetComponent<Light>();
         mat = pillarRenderer.material;
-
     }
 
     private void Update()
@@ -32,18 +33,19 @@ public class PillarScript : MonoBehaviour {
         //Turns pillars that are touched on or off
         if (other.name.Contains("LerpingObject"))
         {
+            pillarIsOn = !pillarIsOn;
             Debug.Log("Pillar" + name + "Hit");
             //Switch light
-            pillarLight.enabled = !pillarLight.enabled;
+            pillarLight.enabled = pillarIsOn;
 
             //Switch emission on/off
-            if (mat.IsKeywordEnabled("_EMISSION"))
+            if (pillarIsOn)
             {
-                TurnPillarOff();
+                TurnPillarOn();
             }
             else
             {
-                TurnPillarOn();
+                TurnPillarOff();
             }
         }
     }
